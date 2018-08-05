@@ -1,5 +1,7 @@
 # Faceapi_with_tfjs
 
+This app enables face tracking, landmarks and face recognition using face-api.js. Face-api.js is Tensorflow.js beckend.
+
 Details abouth face-api.js as per links below:
 
 https://github.com/justadudewhohacks/face-api.js
