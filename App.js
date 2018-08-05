@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Comp from './component1';
 import './App.css';
 import * as faceapi from 'face-api.js';
 
@@ -8,8 +8,23 @@ class App extends Component {
 
 
     state = {
-              labels: []
+              labels: [],
+              activate: ""
+
               }
+
+
+
+activate = () =>{
+
+    const a = 1;
+    this.state.activate = a;
+    this.setState({a});
+    console.log("this.state.activate;", this.state.activate);
+
+    this.main();
+}
+
 
 
  startWebcam = () =>{
@@ -53,6 +68,9 @@ main = async () => {
            
         const lab = this.state.labels;
         console.log("labels are:",lab);
+        const activate = this.state.activate;
+        console.log("activate are:",activate);
+
 
 
         let ar = [];
@@ -62,6 +80,7 @@ main = async () => {
         const container = document.getElementById('file-container1');
         const file  = document.querySelector('input[type=file]').files[0];
         const reader  = new FileReader();
+        const name = document.getElementById("name").value; // grab the current value for name
 
         reader.addEventListener("load", function () {
             const preview = document.createElement('img');
@@ -92,12 +111,14 @@ main = async () => {
             reader.readAsDataURL(file);
           }
 
-        const name = document.getElementById("name").value; // grab the current value for x
-        const nameX= this.state.labels;
-        nameX.push(name); // append that value to the xs
-        this.setState({nameX});
-        document.getElementById('name').value = '';
-        document.getElementById('upload').value = '';
+
+        if (activate !=="") {
+              const nameX= this.state.labels;
+              nameX.push(name); // append that value to the xs
+              this.setState({nameX});
+              document.getElementById('name').value = '';
+              document.getElementById('upload').value = '';
+        }
 
 
         async function onPlay(imgEl) {
@@ -130,7 +151,9 @@ main = async () => {
             console.log("done in", (Date.now() - ts));
 
 
-            try {
+            if (activate !=="") {
+
+              try {
 
             let i;
             for (i = 0; i < ar.length; i++) { 
@@ -192,20 +215,20 @@ main = async () => {
                            })
                       }
 
-                }
-
+                  }
+             
                 catch(error) {
                   console.error(error);
                   // expected output: SyntaxError: unterminated string literal
                   // Note - error messages will vary depending on browser
                 }        
-
+            }      
         }  
 
           setInterval(
 
               async function(){ const ts1 = Date.now(); await onPlay(imgEl); 
-              console.log("TS2 done in", (Date.now() - ts1));}, 1000
+              console.log("TS2 done in", (Date.now() - ts1));}, 500
             );
 
 
@@ -213,38 +236,21 @@ main = async () => {
 
 
 
-  render() {
-    return (
 
-      <div>
+    render() {
+        
+        return (
+                 <Comp
+                 activate = {this.activate}
+                 main = {this.main}
 
- 
- <h4 className="App-title">Face recognition with face-api.js - and type name and upload images for every person you wanna track, then u good to go</h4>
- 
-          <div id="container" onLoad= {this.main}>
-            <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
-            <canvas id="overlay" />
-       </div>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-        <br/>
+                 
+                 />
+      
+       );
+    }
 
-           
+};
 
-          <div id="file-container1" >
-              <input type="file" id = "upload" onChange= {this.main}/>
-              <label htmlFor="name">Name: </label>
-              <input type="text" size="10" id = "name"  placeholder="Enter name" /><br/><br/>
-
-          </div>
-
-
-          </div>
-
-
-
-
-    );
-  }
-}
 
 export default App;
