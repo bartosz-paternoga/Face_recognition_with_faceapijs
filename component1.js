@@ -14,6 +14,26 @@ const Comp = (props) => (
 	      </header>     
 	    </div> 
 
+
+	    <div id="loading-message">
+	       <p>Face-api.js model is loading. This will take a few moments ...</p>
+	       <p>All good things come for those who wait</p>
+	    </div>
+	    
+		<div className="sk-cube-grid" id="sk-cube-grid">
+		  <div className="sk-cube sk-cube1"></div>
+		  <div className="sk-cube sk-cube2"></div>
+		  <div className="sk-cube sk-cube3"></div>
+		  <div className="sk-cube sk-cube4"></div>
+		  <div className="sk-cube sk-cube5"></div>
+		  <div className="sk-cube sk-cube6"></div>
+		  <div className="sk-cube sk-cube7"></div>
+		  <div className="sk-cube sk-cube8"></div>
+		  <div className="sk-cube sk-cube9"></div>
+		</div>
+
+
+
 		<br/>
 
         <div id="container" onClick= {props.main}>
@@ -27,6 +47,7 @@ const Comp = (props) => (
             <input type="file" id = "upload" onChange= {props.activate}/>
             <label htmlFor="name">Name: </label>
             <input type="text" size="10" id = "name"  placeholder="Enter name" /> 
+            <button  id="reset" onClick= {props.reset}> RESET </button> 
             <br/><br/>
 
         </div>

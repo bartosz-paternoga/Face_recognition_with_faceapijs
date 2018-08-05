@@ -26,8 +26,7 @@ activate = () =>{
 }
 
 
-
- startWebcam = () =>{
+startWebcam = () =>{
     
         navigator.getUserMedia (
 
@@ -58,23 +57,42 @@ activate = () =>{
 main = async () => {
 
         this.startWebcam();
-        const MODEL_URL = './models/';
-        await faceapi.loadFaceRecognitionModel(MODEL_URL);
-        await faceapi.loadMtcnnModel(MODEL_URL);
 
-        console.log("MODEL LOADED");
+        const activate = this.state.activate;
+
+        if (activate ==="") {
+            const MODEL_URL = './models/';
+            await faceapi.loadFaceRecognitionModel(MODEL_URL);
+            await faceapi.loadMtcnnModel(MODEL_URL);
+            console.log("MODEL LOADED");
+
+            const modelLoad = "LOADED";
+
+            if (modelLoad !=="") {
+                const elem1 = document.getElementById('loading-message');
+                elem1.style.display = 'none';
+                const elem2 = document.getElementById('sk-cube-grid');
+                elem2.style.display = 'none';
+                const elem3= document.getElementById('video');
+                elem3.style.display = 'flex';
+                          const elem4= document.getElementById('file-container1');
+          elem4.style.display = 'inline';
+                }
+
+              }
+
+        
 
         const imgEl = document.getElementById('video');
            
         const lab = this.state.labels;
         console.log("labels are:",lab);
-        const activate = this.state.activate;
+        
         console.log("activate are:",activate);
 
 
 
         let ar = [];
-        let arLength = ar.length;
 
         const IMAGE_SIZE = 200;
         const container = document.getElementById('file-container1');
@@ -223,17 +241,24 @@ main = async () => {
                   // Note - error messages will vary depending on browser
                 }        
             }      
-        }  
+
+
+        }  //end onplay
 
           setInterval(
 
               async function(){ const ts1 = Date.now(); await onPlay(imgEl); 
-              console.log("TS2 done in", (Date.now() - ts1));}, 500
+              console.log("TS2 done in", (Date.now() - ts1));}, 800
             );
+
 
 
       }
 
+
+reset  = () =>{
+              window.location.reload();
+              }  
 
 
 
@@ -243,7 +268,7 @@ main = async () => {
                  <Comp
                  activate = {this.activate}
                  main = {this.main}
-
+                 reset = {this.reset}
                  
                  />
       
