@@ -220,8 +220,9 @@ main = async () => {
                                   faceapi.drawDetection(canvas, result.detection, { withScore: false })
                 
                                   if (result.distance<0.35){
-                                      const text = `${result.label}`
+                                      const text = `${result.label}`;
                                       // ${result.distance.toFixed(2)*100}%             ${i} `
+                                      console.log("NAME IN A BOX: ", text);
                                       const { x, y, height: boxHeight } = result.detection.getBox()
                                       faceapi.drawText(
                                         canvas.getContext('2d'),
