@@ -219,7 +219,7 @@ main = async () => {
                   results.forEach(result => {
                                   faceapi.drawDetection(canvas, result.detection, { withScore: false })
                 
-                                  if (result.distance<0.4){
+                                  if (result.distance<0.35){
                                       const text = `${result.label}`
                                       // ${result.distance.toFixed(2)*100}%             ${i} `
                                       const { x, y, height: boxHeight } = result.detection.getBox()
