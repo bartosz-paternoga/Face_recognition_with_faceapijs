@@ -86,15 +86,15 @@ main = async () => {
         const imgEl = document.getElementById('video');
            
         const lab = this.state.labels;
-        console.log("labels are:",lab);
+        console.log("labels:",lab);
         
-        console.log("activate are:",activate);
+        console.log("activate:",activate);
 
 
 
         let ar = [];
 
-        const IMAGE_SIZE = 200;
+        const IMAGE_SIZE = 320;
         const container = document.getElementById('file-container1');
         const file  = document.querySelector('input[type=file]').files[0];
         const reader  = new FileReader();
@@ -166,7 +166,7 @@ main = async () => {
             faceapi.drawLandmarks(canvas, fd.landmarks, { drawLines: true, color: 'red',lineWidth: 4 })
             });
 
-            console.log("done in", (Date.now() - ts));
+            console.log("Face landmarks detected in", (Date.now() - ts));
 
 
             if (activate !=="") {
@@ -245,12 +245,24 @@ main = async () => {
 
         }  //end onplay
 
+        let interval;
+
           setInterval(
 
-              async function(){ const ts1 = Date.now(); await onPlay(imgEl); 
-              console.log("TS2 done in", (Date.now() - ts1));}, 800
+              async function(){ 
+                                
+                                const ts1 = Date.now(); 
+                                await onPlay(imgEl); 
+                                
+                                let interval = (Date.now() - ts1);
+                                console.log("interval", interval); },
+
+
+                                (interval+10)
             );
 
+
+            
 
 
       }
