@@ -7,10 +7,9 @@ const Comp = (props) => (
 
 	<div>
 
-	    <div className="App" onLoad= {props.main}>
+	    <div className="App">
 	      <header className="App-header" >
-	              <img src={logo} className="App-logo" alt="logo" /> 
-	        <h4 className="App-title">Face recognition with face-api.js. Type name and upload images for every person you wanna track, then u good to go.</h4>
+	      <h4 className="App-title">Face recognition with face-api.js</h4>
 	      </header>     
 	    </div> 
 
@@ -32,9 +31,10 @@ const Comp = (props) => (
 		  <div className="sk-cube sk-cube9"></div>
 		</div>
 
+<div id="text">
+<p> type name and upload images for every person you wanna track, then u good to go </p>
+</div>
 
-
-		<br/>
 
         <div id="container" onClick= {props.main}>
             <video className="img" id="video"  width="640" height="480" controls autoPlay ></video>
