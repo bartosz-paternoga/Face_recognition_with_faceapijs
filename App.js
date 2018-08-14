@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Comp from './component1';
+import Webcam from './webcam';
+import Loader from './loader';
 import './App.css';
 import * as faceapi from 'face-api.js';
 
@@ -14,57 +16,27 @@ class App extends Component {
               }
 
 
-
-componentWillMount() {
- this.main();
- console.log("componentWillMount", );
-
-}
+    componentWillMount() {
+     this.main();
+     console.log("componentWillMount");
+      }
 
 
+    activate = () =>{
 
-activate = () =>{
+        const a = 1;
+        this.state.activate = a;
+        this.setState({a});
+        console.log("this.state.activate;", this.state.activate);
 
-    const a = 1;
-    this.state.activate = a;
-    this.setState({a});
-    console.log("this.state.activate;", this.state.activate);
-
-    this.main();
-}
-
-
-startWebcam = () =>{
-    
-        navigator.getUserMedia (
-
-          // constraints
-                {
-                   video: true,
-                   audio: false
-                },
-
-          // successCallback
-                function(a) {   
-                const video = document.querySelector('video');
-
-                video.srcObject = a; 
-
-                },
-
-          // errorCallback
-                function() {}
-
-        );
-
-    } 
+        this.main();
+    }
 
 
 
+    main = async () => {
 
-main = async () => {
-
-        this.startWebcam();
+        Webcam();
 
         const activate = this.state.activate;
 
@@ -76,18 +48,7 @@ main = async () => {
 
             const modelLoad = "LOADED";
 
-            if (modelLoad !=="") {
-                const elem1 = document.getElementById('loading-message');
-                elem1.style.display = 'none';
-                const elem2 = document.getElementById('sk-cube-grid');
-                elem2.style.display = 'none';
-                const elem3= document.getElementById('video');
-                elem3.style.display = 'flex';
-                const elem4= document.getElementById('file-container1');
-                elem4.style.display = 'inline';
-                const elem5= document.getElementById('text');
-                elem5.style.display = 'inline';
-                }
+            Loader(modelLoad);
 
               }
 
@@ -209,7 +170,7 @@ main = async () => {
                   const sortAsc = (a, b) => a - b
 
                   const results = fullFaceDescriptions.map((fd) => {
-                     const bestMatch = refDescriptors.map(
+                  const bestMatch = refDescriptors.map(
                                      ({ descriptor, label }) => ({
                                         label,
                                         distance: faceapi.euclideanDistance(fd.descriptor, descriptor)
@@ -237,12 +198,17 @@ main = async () => {
 
                                       const { x, y, height: boxHeight } = result.detection.getBox()
 
+
+
                                       faceapi.drawText(
                                         canvas.getContext('2d'),
                                         x,
                                         y + boxHeight,
                                         text, {color: 'red'}
                                         )
+
+
+
                                   }
                            })
                       }
@@ -282,9 +248,9 @@ main = async () => {
       }
 
 
-reset  = () =>{
-              window.location.reload();
-              }  
+    reset = () => {
+     window.location.reload();
+    }
 
 
 
@@ -292,10 +258,10 @@ reset  = () =>{
         
         return (
                  <Comp
-                 activate = {this.activate}
-                 main = {this.main}
-                 reset = {this.reset}
-                 
+                   activate = {this.activate}
+                   main = {this.main}
+                   reset = {this.reset}
+                   
                  />
       
        );
